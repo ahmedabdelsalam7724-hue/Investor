@@ -1,0 +1,198 @@
+
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>المحفظة الإلكترونية</title>
+<style>
+body {
+  margin: 0;
+  font-family: "Cairo", sans-serif;
+  background-color: #f5f2ea;
+  color: #333;
+}
+
+.header {
+  background-color: #3b3229;
+  color: white;
+  text-align: center;
+  padding: 15px;
+  font-size: 20px;
+}
+
+.container {
+  padding: 20px;
+}
+
+.balance {
+  background-color: white;
+  padding: 15px;
+  border-radius: 10px;
+  text-align: center;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+  margin-bottom: 20px;
+}
+
+.btn {
+  display: inline-block;
+  background-color: #b08d57;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+  margin: 5px;
+}
+
+.btn:hover {
+  background-color: #9b7d4f;
+}
+
+.option-box {
+  display: none;
+  background-color: #fff6e0;
+  padding: 15px;
+  border-radius: 10px;
+  border: 1px solid #b08d57;
+  margin-top: 10px;
+}
+
+input, select {
+  width: 100%;
+  padding: 8px;
+  margin: 6px 0;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  font-family: "Cairo", sans-serif;
+}
+
+label {
+  font-weight: bold;
+}
+
+</style>
+</head>
+<body>
+
+<div class="header">المحفظة الإلكترونية</div>
+
+<div class="container">
+  <div class="balance">
+    <h3>رصيدك الحالى:</h3>
+    <p id="balance">2500 ج.م</p>
+  </div>
+
+  <button class="btn" onclick="showTransferOptions()">تحويل</button>
+
+  <div id="transferOptions" class="option-box">
+    <button class="btn" onclick="showInvestmentForm()">تحويل لدوائر الاستثمار</button>
+    <button class="btn" onclick="showAccountForm()">تحويل لحساب آخر</button>
+  </div>
+
+  <!-- نموذج تحويل لدوائر الاستثمار -->
+  <div id="investmentForm" class="option-box">
+    <h3>تحويل لدوائر الاستثمار</h3>
+    <label>اسم الدائرة:</label>
+    <input type="text" id="circleName" placeholder="أدخل اسم الدائرة">
+    
+    <label>المبلغ المراد تحويله:</label>
+    <input type="number" id="circleAmount" placeholder="أدخل المبلغ">
+
+    <label>الرقم التعريفى للدائرة:</label>
+    <input type="text" id="circleId" placeholder="أدخل الرقم التعريفى">
+
+    <label>نوع الدائرة:</label>
+    <select id="circleType">
+      <option>استثمار تقني</option>
+      <option>استثمار صناعي</option>
+      <option>استثمار زراعي</option>
+      <option>استثمار تجاري</option>
+    </select>
+
+    <button class="btn" onclick="transferToCircle()">تحويل الآن</button>
+  </div>
+
+  <!-- نموذج تحويل لحساب آخر -->
+  <div id="accountForm" class="option-box">
+    <h3>تحويل لحساب آخر</h3>
+    <label>الرقم التعريفى للحساب:</label>
+    <input type="text" id="accId" placeholder="أدخل الرقم التعريفى للحساب">
+
+    <label>اسم صاحب الحساب:</label>
+    <input type="text" id="accName" placeholder="أدخل اسم صاحب الحساب">
+
+    <label>رقم الموبايل:</label>
+    <input type="tel" id="accPhone" placeholder="أدخل رقم الموبايل">
+
+    <label>المبلغ المراد تحويله:</label>
+    <input type="number" id="accAmount" placeholder="أدخل المبلغ">
+
+    <button class="btn" onclick="transferToAccount()">تحويل الآن</button>
+  </div>
+</div>
+
+<script>
+let balance = 2500;
+
+function showTransferOptions(){
+  const box = document.getElementById("transferOptions");
+  box.style.display = box.style.display === "block" ? "none" : "block";
+}
+
+function showInvestmentForm(){
+  document.getElementById("investmentForm").style.display = "block";
+  document.getElementById("accountForm").style.display = "none";
+}
+
+function showAccountForm(){
+  document.getElementById("accountForm").style.display = "block";
+  document.getElementById("investmentForm").style.display = "none";
+}
+
+function transferToCircle(){
+  const amount = Number(document.getElementById("circleAmount").value);
+  const name = document.getElementById("circleName").value.trim();
+  const id = document.getElementById("circleId").value.trim();
+
+  if(!name || !id || !amount){
+    alert("يرجى ملء جميع الحقول المطلوبة.");
+    return;
+  }
+
+  if(amount > balance){
+    alert("الرصيد غير كافى لإتمام العملية.");
+    return;
+  }
+
+  balance -= amount;
+  document.getElementById("balance").innerText = balance + " ج.م";
+  alert(`تم تحويل ${amount} ج.م إلى دائرة "${name}" بنجاح ✅`);
+}
+
+function transferToAccount(){
+  const id = document.getElementById("accId").value.trim();
+  const name = document.getElementById("accName").value.trim();
+  const phone = document.getElementById("accPhone").value.trim();
+  const amount = Number(document.getElementById("accAmount").value);
+
+  if(!id || !name || !phone || !amount){
+    alert("يرجى ملء جميع الحقول المطلوبة.");
+    return;
+  }
+
+  if(amount > balance){
+    alert("الرصيد غير كافى لإتمام العملية.");
+    return;
+  }
+
+  balance -= amount;
+  document.getElementById("balance").innerText = balance + " ج.م";
+  alert(`تم تحويل ${amount} ج.م إلى حساب "${name}" بنجاح ✅`);
+}
+</script>
+
+</body>
+</html>
+

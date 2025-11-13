@@ -1,0 +1,199 @@
+
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>بطاقاتي</title>
+<style>
+body {
+  margin: 0;
+  font-family: "Cairo", sans-serif;
+  background-color: #f5f2ea;
+  color: #333;
+}
+
+.header {
+  background-color: #3b3229;
+  color: white;
+  text-align: center;
+  padding: 15px;
+  font-size: 22px;
+}
+
+.container {
+  max-width: 900px;
+  margin: 30px auto;
+  background-color: #fff;
+  border-radius: 15px;
+  padding: 20px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.card {
+  background: linear-gradient(135deg, #b08d57, #3b3229);
+  color: white;
+  border-radius: 15px;
+  padding: 20px;
+  margin-bottom: 20px;
+  position: relative;
+}
+
+.card h3 {
+  margin: 0 0 10px 0;
+}
+
+.card p {
+  margin: 5px 0;
+  font-size: 15px;
+}
+
+.add-card-btn {
+  display: block;
+  width: 100%;
+  background-color: #3b3229;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  padding: 12px;
+  font-size: 16px;
+  cursor: pointer;
+  margin-top: 15px;
+}
+.add-card-btn:hover {
+  background-color: #5a4d3d;
+}
+
+.modal {
+  display: none;
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: rgba(0,0,0,0.6);
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-content {
+  background: #fff;
+  padding: 20px;
+  border-radius: 12px;
+  width: 90%;
+  max-width: 400px;
+  text-align: center;
+}
+
+.modal-content h2 {
+  margin-bottom: 15px;
+}
+
+input, select {
+  width: 100%;
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  margin-bottom: 10px;
+  font-family: "Cairo", sans-serif;
+}
+
+button {
+  background-color: #b08d57;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 15px;
+  cursor: pointer;
+}
+button:hover {
+  background-color: #3b3229;
+}
+</style>
+</head>
+<body>
+
+<div class="header">بطاقاتي 💳</div>
+
+<div class="container">
+  <div id="cardList">
+    <div class="card">
+      <h3>بطاقة المستثمر</h3>
+      <p>الرقم: 4455 7788 9900 1122</p>
+      <p>النوع: Visa</p>
+      <p>تاريخ الإنتهاء: 12/27</p>
+    </div>
+
+    <div class="card">
+      <h3>بطاقة الشركة</h3>
+      <p>الرقم: 2233 5566 7788 9900</p>
+      <p>النوع: MasterCard</p>
+      <p>تاريخ الإنتهاء: 05/28</p>
+    </div>
+  </div>
+
+  <button class="add-card-btn" onclick="openModal()">➕ إضافة بطاقة جديدة</button>
+</div>
+
+<!-- نافذة إضافة بطاقة جديدة -->
+<div class="modal" id="addCardModal">
+  <div class="modal-content">
+    <h2>إضافة بطاقة جديدة</h2>
+    <input type="text" id="cardName" placeholder="اسم البطاقة">
+    <input type="text" id="cardNumber" placeholder="رقم البطاقة">
+    <select id="cardType">
+      <option value="">اختر نوع البطاقة</option>
+      <option value="Visa">Visa</option>
+      <option value="MasterCard">MasterCard</option>
+      <option value="InstaPay">InstaPay</option>
+      <option value="Vodafone Cash">Vodafone Cash</option>
+      <option value="Orange Cash">Orange Cash</option>
+    </select>
+    <input type="month" id="cardExpiry">
+    <button onclick="addCard()">حفظ</button>
+    <button onclick="closeModal()" style="background-color:#ccc;color:#333;">إلغاء</button>
+  </div>
+</div>
+
+<script>
+const modal = document.getElementById("addCardModal");
+const cardList = document.getElementById("cardList");
+
+function openModal(){
+  modal.style.display = "flex";
+}
+
+function closeModal(){
+  modal.style.display = "none";
+}
+
+function addCard(){
+  const name = document.getElementById("cardName").value.trim();
+  const number = document.getElementById("cardNumber").value.trim();
+  const type = document.getElementById("cardType").value.trim();
+  const expiry = document.getElementById("cardExpiry").value;
+
+  if(!name || !number || !type || !expiry){
+    alert("من فضلك أكمل جميع الحقول.");
+    return;
+  }
+
+  const newCard = document.createElement("div");
+  newCard.classList.add("card");
+  newCard.innerHTML = `
+    <h3>${name}</h3>
+    <p>الرقم: ${number}</p>
+    <p>النوع: ${type}</p>
+    <p>تاريخ الإنتهاء: ${expiry}</p>
+  `;
+
+  cardList.appendChild(newCard);
+  closeModal();
+  document.getElementById("cardName").value = "";
+  document.getElementById("cardNumber").value = "";
+  document.getElementById("cardType").value = "";
+  document.getElementById("cardExpiry").value = "";
+}
+</script>
+
+</body>
+</html>
+

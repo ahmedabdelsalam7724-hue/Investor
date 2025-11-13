@@ -1,0 +1,113 @@
+
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ساحة العرض</title>
+<style>
+body {
+    font-family: Arial, sans-serif;
+    background: linear-gradient(to right, #74ebd5, #ACB6E5);
+    margin: 0;
+    padding: 0;
+}
+.container {
+    max-width: 600px;
+    margin: 20px auto;
+    padding: 0 15px;
+}
+h1 {
+    text-align: center;
+    color: #333;
+    margin-top: 20px;
+}
+.card {
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    padding: 20px;
+    margin: 15px 0;
+}
+.card h3 {
+    margin: 0 0 10px 0;
+    color: #007BFF;
+}
+.card p {
+    margin: 5px 0;
+    color: #555;
+}
+button {
+    padding: 10px 20px;
+    margin-top: 10px;
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+button:hover {
+    background-color: #0056b3;
+}
+a {
+    display: inline-block;
+    margin-top: 20px;
+    padding: 10px 20px;
+    background-color: #FF4C4C;
+    color: white;
+    border-radius: 8px;
+    text-decoration: none;
+}
+a:hover { background-color: #cc0000; }
+</style>
+</head>
+<body>
+<div class="container">
+    <h1>ساحة العرض</h1>
+    <div id="arenaContent">
+        <!-- سيتم إضافة العناصر هنا ديناميكياً -->
+    </div>
+    <a href="Main.html">العودة للصفحة الرئيسية</a>
+</div>
+
+<script>
+// مثال للمحتوى: لو عندنا عناصر مختلفة من المستخدمين أو أفكار
+// كل عنصر: {title, description, owner}
+
+const sampleContent = [
+    {title: "فكرة 1", description: "وصف الفكرة 1", owner: "ahmed"},
+    {title: "فكرة 2", description: "وصف الفكرة 2", owner: "ali"},
+    {title: "فكرة 3", description: "وصف الفكرة 3", owner: "mona"}
+];
+
+function loadArena() {
+    const arenaDiv = document.getElementById("arenaContent");
+    arenaDiv.innerHTML = ""; // تنظيف المحتوى قبل العرض
+
+    sampleContent.forEach((item, index) => {
+        const card = document.createElement("div");
+        card.className = "card";
+        card.innerHTML = `
+            <h3>${item.title}</h3>
+            <p>${item.description}</p>
+            <p>صاحب المحتوى: ${item.owner}</p>
+            <button onclick="showDetails(${index})">تفاصيل</button>
+        `;
+        arenaDiv.appendChild(card);
+    });
+}
+
+// دالة عرض التفاصيل لكل عنصر
+function showDetails(index) {
+    const item = sampleContent[index];
+    alert(`تفاصيل العنصر:\nالعنوان: ${item.title}\nالوصف: ${item.description}\nالمالك: ${item.owner}`);
+}
+
+window.onload = function() {
+    loadArena();
+};
+</script>
+</body>
+</html>
+

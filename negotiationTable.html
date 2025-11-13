@@ -1,0 +1,153 @@
+
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>طاولة المفاوضات</title>
+<style>
+body {
+  margin: 0;
+  font-family: "Cairo", sans-serif;
+  background-color: #f5f2ea;
+  color: #333;
+}
+
+.header {
+  background-color: #3b3229;
+  color: white;
+  text-align: center;
+  padding: 15px;
+  font-size: 20px;
+}
+
+.container {
+  padding: 20px;
+}
+
+.negotiation {
+  background-color: white;
+  padding: 15px;
+  border-radius: 10px;
+  margin-bottom: 15px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+}
+
+.negotiation h3 {
+  margin-top: 0;
+  color: #3b3229;
+}
+
+.btn {
+  background-color: #b08d57;
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.btn:hover {
+  background-color: #9b7d4f;
+}
+
+.details-box {
+  display: none;
+  background-color: #fff6e0;
+  border: 1px solid #b08d57;
+  border-radius: 10px;
+  padding: 15px;
+  margin-top: 10px;
+}
+
+textarea {
+  width: 100%;
+  height: 70px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  padding: 8px;
+  font-family: "Cairo", sans-serif;
+}
+
+.reply-btn {
+  background-color: #3b3229;
+  color: white;
+  padding: 6px 10px;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  margin-top: 5px;
+}
+</style>
+</head>
+<body>
+
+<div class="header">طاولة المفاوضات</div>
+
+<div class="container" id="negotiationsList">
+  <!-- المفاوضات يتم توليدها هنا -->
+</div>
+
+<script>
+const negotiations = [
+  {
+    title: "مفاوضة حول مشروع الطاقة النظيفة",
+    company: "شركة المستقبل للطاقة",
+    investor: "المستثمر أحمد سامي",
+    details: "تفاوض حول تمويل المرحلة الثانية من المشروع بقيمة 100,000 ج.م."
+  },
+  {
+    title: "مفاوضة بين شركة زراعة خضراء ومستثمر خليجي",
+    company: "زراعة خضراء",
+    investor: "مستثمر من الكويت",
+    details: "عرض استثمار بنسبة 30% مقابل 200,000 ج.م."
+  },
+  {
+    title: "مفاوضة تطوير تطبيق التعليم الذكي",
+    company: "SmartEdu",
+    investor: "المستثمر محمد علي",
+    details: "تمويل قدره 150,000 ج.م مقابل 25% من الأرباح."
+  }
+];
+
+const container = document.getElementById("negotiationsList");
+
+negotiations.forEach((n, i) => {
+  const div = document.createElement("div");
+  div.classList.add("negotiation");
+  div.innerHTML = `
+    <h3>${n.title}</h3>
+    <p><strong>الشركة:</strong> ${n.company}</p>
+    <p><strong>المستثمر:</strong> ${n.investor}</p>
+    <button class="btn" onclick="showDetails(${i})">تفاصيل المفاوضة</button>
+
+    <div class="details-box" id="details-${i}">
+      <p><strong>التفاصيل:</strong> ${n.details}</p>
+      <h4>إرسال رد:</h4>
+      <textarea id="reply-${i}" placeholder="اكتب ردك هنا..."></textarea>
+      <button class="reply-btn" onclick="sendReply(${i})">إرسال</button>
+    </div>
+  `;
+  container.appendChild(div);
+});
+
+function showDetails(i){
+  const box = document.getElementById(`details-${i}`);
+  box.style.display = box.style.display === "block" ? "none" : "block";
+}
+
+function sendReply(i){
+  const msg = document.getElementById(`reply-${i}`).value.trim();
+  if(!msg){
+    alert("يرجى كتابة الرد قبل الإرسال.");
+    return;
+  }
+  alert(`تم إرسال ردك على المفاوضة رقم ${i+1} بنجاح ✅`);
+  document.getElementById(`reply-${i}`).value = "";
+}
+</script>
+
+</body>
+</html>
+

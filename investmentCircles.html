@@ -1,0 +1,139 @@
+
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>دوائر الاستثمار</title>
+<style>
+body {
+  margin: 0;
+  font-family: "Cairo", sans-serif;
+  background-color: #f5f2ea;
+  color: #333;
+}
+
+.header {
+  background-color: #3b3229;
+  color: white;
+  text-align: center;
+  padding: 15px;
+  font-size: 20px;
+}
+
+.container {
+  padding: 20px;
+}
+
+.circle {
+  background-color: white;
+  padding: 15px;
+  margin-bottom: 15px;
+  border-radius: 10px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+}
+
+.circle h3 {
+  margin-top: 0;
+  color: #3b3229;
+}
+
+.btn {
+  display: inline-block;
+  background-color: #b08d57;
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.btn:hover {
+  background-color: #9b7d4f;
+}
+
+.details-box {
+  display: none;
+  background-color: #fff6e0;
+  border: 1px solid #b08d57;
+  border-radius: 10px;
+  padding: 15px;
+  margin-top: 10px;
+}
+
+.checkbox {
+  margin-top: 10px;
+  display: flex;
+  align-items: center;
+}
+
+.checkbox input {
+  margin-left: 8px;
+}
+</style>
+</head>
+<body>
+
+<div class="header">دوائر الاستثمار</div>
+
+<div class="container" id="circlesList">
+  <!-- الدوائر يتم توليدها هنا -->
+</div>
+
+<script>
+// بيانات تجريبية لمشاريع الدوائر
+const circles = [
+  { name: "مشروع الطاقة النظيفة", members: 8, contribute: 500, receive: 1500 },
+  { name: "تطبيق التعليم الذكي", members: 5, contribute: 300, receive: 1200 },
+  { name: "شركة الزراعة المستدامة", members: 6, contribute: 400, receive: 2000 }
+];
+
+const container = document.getElementById("circlesList");
+
+// عرض الدوائر
+circles.forEach((circle, index) => {
+  const div = document.createElement("div");
+  div.classList.add("circle");
+  div.innerHTML = `
+    <h3>${circle.name}</h3>
+    <p>عدد الأفراد الحاليين: ${circle.members}</p>
+    <button class="btn" onclick="showDetails(${index})">تفاصيل</button>
+    <div class="details-box" id="details-${index}">
+      <p><strong>المبلغ المقدم:</strong> ${circle.contribute} ج.م</p>
+      <p><strong>المبلغ المحصل:</strong> ${circle.receive} ج.م</p>
+      <p><strong>الشروط:</strong></p>
+      <ul style="text-align:right;">
+        <li>الأسبقية في الحصول على الأموال حسب أسبقية الانضمام.</li>
+        <li>لإدارة المنصة نسبة من المبلغ المحصل لكل فرد.</li>
+        <li>الخروج من الدائرة قبل انتهائها يمنع إعادة الانضمام.</li>
+      </ul>
+      <div class="checkbox">
+        <input type="checkbox" id="agree-${index}">
+        <label for="agree-${index}">أوافق على الشروط</label>
+      </div>
+      <button class="btn" onclick="joinCircle(${index})">انضم للدائرة</button>
+    </div>
+  `;
+  container.appendChild(div);
+});
+
+function showDetails(i){
+  const box = document.getElementById(`details-${i}`);
+  box.style.display = box.style.display === "block" ? "none" : "block";
+}
+
+function joinCircle(i){
+  const check = document.getElementById(`agree-${i}`);
+  if(!check.checked){
+    alert("يجب الموافقة على الشروط قبل الانضمام للدائرة.");
+    return;
+  }
+  alert(`تم انضمامك إلى ${circles[i].name} بنجاح ✅`);
+  // هنا يمكن لاحقاً ربط التحويل من المحفظة الإلكترونية تلقائياً
+}
+</script>
+
+</body>
+</html>
+
