@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>الصفحة الشخصية</title>
+<style>
+body{font-family:Cairo, sans-serif;padding:16px;background:#faf8f3}
+.card{background:#fff;padding:12px;border-radius:10px;max-width:600px;margin:auto}
+img.avatar{width:100px;height:100px;border-radius:50%;object-fit:cover}
+</style>
+</head>
+<body>
+<div class="card">
+  <div style="text-align:center">
+    <img id="pAvatar" class="avatar" src="" alt="avatar"><h3 id="pName"></h3>
+    <div>الرقم التعريفي: <span id="pId"></span></div>
+    <div style="margin-top:8px"><button onclick="follow()">متابعة</button></div>
+  </div>
+  <hr>
+  <h4>منشوراتي</h4>
+  <div id="myPosts"></div>
+</div>
+<script>
+const user=JSON.parse(localStorage.getItem('currentUser'));
+if(!user) location.href='index.html';
+document.getElementById('pName').innerText=user.name;
+document.getElementById('pId').innerText=user.id;
+if(user.avatar) document.getElementById('pAvatar').src=user.avatar;
+const posts=JSON.parse(localStorage.getItem('posts')||'[]').filter(p=>p.userId===user.id);
+document.getElementById('myPosts').innerHTML=posts.map(p=>`<div style="background:#fff;padding:8px;margin:8px 0;border-radius:8px">${p.text}</div>`).join('');
+function follow(){alert('تم متابعة الحساب');}
+</script>
+</body>
+</html>
+

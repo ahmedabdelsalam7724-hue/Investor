@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>البطاقات</title>
+<style>
+body{font-family:Cairo, sans-serif;background:#faf8f3;padding:12px}
+.card{background:#fff;padding:10px;border-radius:8px;margin-bottom:8px}
+</style>
+</head>
+<body>
+<h3 style="text-align:center">البطاقات</h3>
+<div id="cards"></div>
+<script>
+let cards=JSON.parse(localStorage.getItem('cards')||'[]');
+if(cards.length===0){
+  cards=[{id:'B1',type:'company',name:'شركة أ',score:10},{id:'B2',type:'idea',name:'فكرة ب',score:2}];
+  localStorage.setItem('cards',JSON.stringify(cards))
+}
+function render(){
+  const ctn=document.getElementById('cards');ctn.innerHTML='';
+  cards.sort((a,b)=>a.score-b.score).forEach(card=>{
+    const el=document.createElement('div');el.className='card';
+    el.innerHTML=`<div><strong>${card.name}</strong> (${card.type})</div>
+    <div>تصويت: ${card.score}</div>
+    <div><button onclick="vote('${card.id}')">✴️تصويت</button></div>`;
+    ctn.appendChild(el)
+  });
+}
+function vote(id){cards=cards.map(c=>c.id===id?{...c,score:c.score+1}:c);localStorage.setItem('cards',JSON.stringify(cards));render();}
+render();
+</script>
+</body>
+</html>
+

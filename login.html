@@ -1,0 +1,69 @@
+
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>منصة - تسجيل الدخول</title>
+<style>
+body{font-family:Cairo,sans-serif;background:#b08d57;margin:0;display:flex;justify-content:center;align-items:center;min-height:100vh;}
+.container{background:#fff;padding:20px;border-radius:12px;width:360px;box-shadow:0 6px 20px rgba(0,0,0,0.1);}
+.logo{font-size:48px;color:#b08d57;text-align:center;}
+h2{text-align:center;color:#4b3f2f;margin:10px 0 20px;}
+input,button{width:100%;padding:10px;margin:8px 0;border-radius:8px;border:1px solid #ddd;font-size:14px;}
+button{background:#b08d57;color:#fff;font-weight:700;border:none;cursor:pointer;}
+.link{text-align:center;display:block;margin-top:10px;color:#4b3f2f;text-decoration:underline;cursor:pointer;}
+.msg{display:none;padding:10px;border-radius:8px;background:#d6b89a;color:#2b1f12;margin:10px 0;text-align:center;}
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="logo">$</div>
+  <h2>تسجيل الدخول</h2>
+  <div class="msg" id="msgLogin">رسالة</div>
+  <input type="email" id="loginEmail" placeholder="البريد الإلكتروني">
+  <input type="password" id="loginPassword" placeholder="كلمة المرور">
+  <button id="loginBtn">تسجيل الدخول</button>
+  <a class="link" id="forgotPass">نسيت كلمة السر؟</a>
+  <a class="link" href="signup.html">إنشاء حساب</a>
+</div>
+
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.6.1/firebase-app.js";
+import { getAuth, signInWithEmailAndPassword, sendPasswordResetEmail } from "https://www.gstatic.com/firebasejs/10.6.1/firebase-auth.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyA2YTpZvVYRT62B-r_WjIWlxXX4V1AcWrg",
+  authDomain: "finance-platform-a0531.firebaseapp.com",
+  projectId: "finance-platform-a0531",
+  storageBucket: "finance-platform-a0531.firebasestorage.app",
+  messagingSenderId: "945606973976",
+  appId: "1:945606973976:web:db359053c6030478dd816d",
+  measurementId: "G-NJNLW5V3L5"
+};
+
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+
+function showMsg(text){const m=document.getElementById('msgLogin');m.innerText=text;m.style.display='block';setTimeout(()=>m.style.display='none',3000);}
+
+document.getElementById('loginBtn').onclick = ()=>{
+  const email=document.getElementById('loginEmail').value.trim();
+  const pass=document.getElementById('loginPassword').value;
+  if(!email||!pass){showMsg('من فضلك أكمل جميع الحقول'); return;}
+  signInWithEmailAndPassword(auth,email,pass)
+    .then(()=>{showMsg('تم تسجيل الدخول بنجاح');})
+    .catch(err=>showMsg(err.message));
+};
+
+document.getElementById('forgotPass').onclick = ()=>{
+  const email=document.getElementById('loginEmail').value.trim();
+  if(!email){showMsg('من فضلك أدخل البريد'); return;}
+  sendPasswordResetEmail(auth,email)
+    .then(()=>showMsg('تم إرسال رابط إعادة التعيين للبريد'))
+    .catch(err=>showMsg(err.message));
+};
+</script>
+</body>
+</html>
+

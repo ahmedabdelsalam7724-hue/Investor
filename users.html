@@ -1,0 +1,98 @@
+
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>إدارة المستخدمين</title>
+<style>
+body {
+    font-family: Arial, sans-serif;
+    background: linear-gradient(to right, #74ebd5, #ACB6E5);
+    margin: 0;
+    padding: 0;
+}
+.container {
+    max-width: 600px;
+    margin: 50px auto;
+    background: #fff;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+}
+h1 { text-align: center; color: #333; }
+table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+th, td { padding: 12px; border-bottom: 1px solid #ddd; text-align: center; }
+th { background-color: #007BFF; color: white; }
+button {
+    padding: 6px 12px;
+    background-color: #FF4C4C;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+button:hover { background-color: #cc0000; }
+a {
+    display: inline-block;
+    margin-top: 20px;
+    padding: 10px 20px;
+    background-color: #007BFF;
+    color: white;
+    border-radius: 8px;
+    text-decoration: none;
+}
+a:hover { background-color: #0056b3; }
+</style>
+</head>
+<body>
+<div class="container">
+    <h1>إدارة المستخدمين</h1>
+    <table id="usersTable">
+        <thead>
+            <tr>
+                <th>اسم المستخدم</th>
+                <th>البريد الإلكتروني</th>
+                <th>حذف</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+    <a href="Main.html">العودة للصفحة الرئيسية</a>
+</div>
+
+<script>
+// تحميل المستخدمين وعرضهم في الجدول
+function loadUsers() {
+    let users = JSON.parse(localStorage.getItem("users")) || [];
+    const tbody = document.querySelector("#usersTable tbody");
+    tbody.innerHTML = ""; // مسح الجدول قبل إعادة العرض
+
+    users.forEach((user, index) => {
+        const tr = document.createElement("tr");
+        tr.innerHTML = `
+            <td>${user.username}</td>
+            <td>${user.email}</td>
+            <td><button onclick="deleteUser(${index})">حذف</button></td>
+        `;
+        tbody.appendChild(tr);
+    });
+}
+
+// حذف مستخدم
+function deleteUser(index) {
+    let users = JSON.parse(localStorage.getItem("users")) || [];
+    if(confirm(`هل أنت متأكد أنك تريد حذف المستخدم ${users[index].username}؟`)) {
+        users.splice(index, 1);
+        localStorage.setItem("users", JSON.stringify(users));
+        loadUsers(); // تحديث الجدول
+    }
+}
+
+window.onload = function() {
+    loadUsers();
+};
+</script>
+</body>
+</html>
+

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>دوائر الإستثمار</title>
+<style>
+body{font-family:Cairo, sans-serif;background:#faf8f3;padding:12px}
+.circle{background:#fff;padding:12px;border-radius:10px;margin-bottom:8px}
+</style>
+</head>
+<body>
+<h3 style="text-align:center">دوائر الإستثمار</h3>
+<div id="list"></div>
+<script>
+let circles=JSON.parse(localStorage.getItem('circles')||'[]');
+if(circles.length===0){
+  circles=[{id:'C1',name:'مشروع ألف',members:3,amount:1000,share:500}];
+  localStorage.setItem('circles',JSON.stringify(circles))
+}
+function render(){
+  const l=document.getElementById('list');l.innerHTML='';
+  JSON.parse(localStorage.getItem('circles')||'[]').forEach(c=>{
+    const el=document.createElement('div');el.className='circle';
+    el.innerHTML=`<div><strong>${c.name}</strong></div>
+    <div>الأعضاء: ${c.members}</div>
+    <div>المبلغ المطلوب: ${c.amount}</div>
+    <div><button onclick=join('${c.id}')>طلب الإنضمام</button> <button onclick=details('${c.id}')>عرض التفاصيل</button></div>`;
+    l.appendChild(el);
+  });
+}
+function join(id){const form=prompt('اكتب الغرض من الانضمام');if(!form) return;alert('تم إرسال طلب الانضمام لإدارة المنصة (محاكاة)')}
+function details(id){const c=JSON.parse(localStorage.getItem('circles')||'[]').find(x=>x.id===id);alert(`المبلغ الذى سيتم تحصيله: ${c.amount}\nالمبلغ المراد دفعه: ${c.share}`)}
+render();
+</script>
+</body>
+</html>

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>غرف الدردشة</title>
+<style>
+body{font-family:Cairo, sans-serif;padding:12px;background:#faf8f3}
+.room{background:#fff;padding:8px;border-radius:8px;margin-bottom:8px}
+</style>
+</head>
+<body>
+<h3>غرف الدردشة</h3>
+<div id="rooms"></div>
+<button onclick="requestRoom()">🗣️طلب إنشاء غرفة دردشة</button>
+<script>
+let rooms=JSON.parse(localStorage.getItem('rooms')||'[]');
+function render(){
+  const r=document.getElementById('rooms');r.innerHTML='';
+  rooms.forEach(room=>{
+    const el=document.createElement('div');el.className='room';
+    el.innerHTML=`<div><strong>${room.name}</strong></div>
+    <div>${room.id}</div>
+    <div><button onclick="openRoom('${room.id}')">فتح</button></div>`;
+    r.appendChild(el)
+  });
+}
+function requestRoom(){const name=prompt('اسم الغرفة');const goal=prompt('الهدف من الغرفة');if(!name||!goal) return;alert('تم إرسال طلب إنشاء الغرفة (يحتاج موافقة)')}
+function openRoom(id){location.href='chatRoom_single.html?id='+id}
+render();
+</script>
+</body>
+</html>
+

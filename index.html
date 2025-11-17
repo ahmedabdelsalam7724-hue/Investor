@@ -1,0 +1,190 @@
+
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>منصة - تسجيل الدخول / إنشاء حساب</title>
+<style>
+body{
+  font-family:Cairo, sans-serif;
+  background:#b08d57;
+  margin:0;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  min-height:100vh;
+}
+.container{
+  background:#fff;
+  border-radius:12px;
+  padding:20px;
+  width:360px;
+  box-shadow:0 6px 20px rgba(0,0,0,0.1);
+}
+.logo{
+  font-size:48px;
+  color:#b08d57;
+  text-align:center;
+}
+h2{
+  text-align:center;
+  color:#4b3f2f;
+  margin:10px 0 20px;
+}
+input,button{
+  width:100%;
+  padding:10px;
+  margin:8px 0;
+  border-radius:8px;
+  border:1px solid #ddd;
+  font-size:14px;
+}
+button{
+  background:#b08d57;
+  color:#fff;
+  font-weight:700;
+  border:none;
+  cursor:pointer;
+}
+.link{
+  display:block;
+  text-align:center;
+  margin-top:10px;
+  color:#4b3f2f;
+  text-decoration:underline;
+  cursor:pointer;
+}
+.msg{
+  display:none;
+  padding:10px;
+  border-radius:8px;
+  background:#d6b89a;
+  color:#2b1f12;
+  margin:10px 0;
+  text-align:center;
+}
+form{
+  display:flex;
+  flex-direction:column;
+}
+.hidden{
+  display:none;
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+
+  <div class="logo">$</div>
+
+  <!-- تسجيل الدخول -->
+  <form id="loginForm">
+    <h2>تسجيل الدخول</h2>
+    <div class="msg" id="msgLogin">رسالة</div>
+    <input type="email" id="loginEmail" placeholder="البريد الإلكتروني">
+    <input type="password" id="loginPassword" placeholder="كلمة المرور">
+    <button type="button" id="loginBtn">تسجيل الدخول</button>
+    <a class="link" id="forgotPass">نسيت كلمة السر؟</a>
+    <button type="button" id="goToSignup">إنشاء حساب</button>
+  </form>
+
+  <!-- إنشاء حساب -->
+  <form id="signupForm" class="hidden">
+    <h2>إنشاء حساب</h2>
+    <div class="msg" id="msgSignup">رسالة</div>
+    <input type="text" id="name" placeholder="الاسم الكامل">
+    <input type="email" id="email" placeholder="البريد الإلكتروني">
+    <input type="text" id="nationalId" placeholder="الرقم القومي / ID">
+    <input type="text" id="phone" placeholder="رقم الموبايل">
+    <input type="password" id="password" placeholder="كلمة المرور">
+    <input type="file" id="avatar" accept="image/*">
+    <button type="button" id="createBtn">إنشاء الحساب</button>
+    <button type="button" id="backToLogin">العودة لتسجيل الدخول</button>
+  </form>
+
+</div>
+
+<!-- Firebase SDK -->
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.6.1/firebase-app.js";
+import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, sendPasswordResetEmail } from "https://www.gstatic.com/firebasejs/10.6.1/firebase-auth.js";
+import { getFirestore, doc, setDoc } from "https://www.gstatic.com/firebasejs/10.6.1/firebase-firestore.js";
+
+// Firebase config
+const firebaseConfig = {
+  apiKey: "AIzaSyA2YTpZvVYRT62B-r_WjIWlxXX4V1AcWrg",
+  authDomain: "finance-platform-a0531.firebaseapp.com",
+  projectId: "finance-platform-a0531",
+  storageBucket: "finance-platform-a0531.firebasestorage.app",
+  messagingSenderId: "945606973976",
+  appId: "1:945606973976:web:db359053c6030478dd816d",
+  measurementId: "G-NJNLW5V3L5"
+};
+
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db = getFirestore(app);
+
+// Helpers
+function showMsg(id,text){const m=document.getElementById(id);m.innerText=text;m.style.display='block';setTimeout(()=>m.style.display='none',3000)}
+
+// Switch forms
+const loginForm = document.getElementById('loginForm');
+const signupForm = document.getElementById('signupForm');
+document.getElementById('goToSignup').onclick = ()=>{loginForm.classList.add('hidden'); signupForm.classList.remove('hidden');};
+document.getElementById('backToLogin').onclick = ()=>{signupForm.classList.add('hidden'); loginForm.classList.remove('hidden');};
+
+// Login
+document.getElementById('loginBtn').onclick = ()=>{
+  const email=document.getElementById('loginEmail').value.trim();
+  const pass=document.getElementById('loginPassword').value;
+  if(!email||!pass){showMsg('msgLogin','من فضلك أكمل جميع الحقول'); return;}
+  signInWithEmailAndPassword(auth,email,pass)
+    .then(userCredential=>{showMsg('msgLogin','تم تسجيل الدخول بنجاح');})
+    .catch(err=>{showMsg('msgLogin',err.message);});
+}
+
+// Forgot password
+document.getElementById('forgotPass').onclick = ()=>{
+  const email=document.getElementById('loginEmail').value.trim();
+  if(!email){showMsg('msgLogin','من فضلك أدخل البريد'); return;}
+  sendPasswordResetEmail(auth,email)
+    .then(()=>showMsg('msgLogin','تم إرسال رابط إعادة التعيين للبريد'))
+    .catch(err=>showMsg('msgLogin',err.message));
+}
+
+// Signup
+document.getElementById('createBtn').onclick = async ()=>{
+  const name=document.getElementById('name').value.trim();
+  const email=document.getElementById('email').value.trim();
+  const id=document.getElementById('nationalId').value.trim();
+  const phone=document.getElementById('phone').value.trim();
+  const password=document.getElementById('password').value;
+  const file=document.getElementById('avatar').files[0];
+  if(!name||!email||!id||!phone||!password){showMsg('msgSignup','من فضلك أكمل جميع الحقول'); return;}
+
+  createUserWithEmailAndPassword(auth,email,password)
+    .then(async userCredential=>{
+      const uid = userCredential.user.uid;
+      let avatarData='';
+      if(file){
+        const reader = new FileReader();
+        avatarData = await new Promise(res=>{
+          reader.onload = ()=>res(reader.result);
+          reader.readAsDataURL(file);
+        });
+      }
+      await setDoc(doc(db,'users',uid),{
+        name,email,nationalId:id,phone,avatar:avatarData,createdAt:new Date().toISOString()
+      });
+      showMsg('msgSignup','تم إنشاء الحساب بنجاح');
+    })
+    .catch(err=>showMsg('msgSignup',err.message));
+}
+</script>
+</body>
+</html>
+
