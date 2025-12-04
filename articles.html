@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>INVESTOR | مكتبة المقالات والمعلومات</title>
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
+    <link rel="stylesheet" href="style.css"> 
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&display=swap" rel="stylesheet">
+    
+    <style>
+        .articles-container {
+            padding: 40px 20px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        .articles-header {
+            color: var(--color-success);
+            font-weight: 800;
+            text-shadow: 0 0 5px rgba(0, 209, 161, 0.5);
+            border-bottom: 2px solid var(--border-dark);
+            padding-bottom: 10px;
+            margin-bottom: 30px;
+        }
+        .article-card {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-dark);
+            border-radius: 15px;
+            padding: 20px;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .article-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 0 15px rgba(0, 188, 212, 0.3);
+        }
+        .article-card h5 {
+            color: var(--color-primary);
+            font-weight: 700;
+        }
+    </style>
+</head>
+<body>
+
+    <header class="header">
+        <div class="logo"><a href="index.html">INVESTOR</a></div>
+        <nav class="nav">
+            <a href="dashboard.html" class="btn btn-outline-dark me-2">لوحة التحكم</a>
+            <a href="auth.html" class="cta-button">تسجيل الدخول</a>
+        </nav>
+    </header>
+
+    <div class="articles-container">
+        
+        <h1 class="articles-header">📚 مكتبة INVESTOR: دليل الإستثمار للمبتدئين</h1>
+        <p class="text-muted mb-5">مجموعة من المقالات التثقيفية والإرشادية التي تساعدك على فهم المنصة وعالم الاستثمار.</p>
+
+        <div class="row row-cols-1 g-4">
+            
+            <h4 class="text-white mt-4 mb-3">حول المنصة (How-To)</h4>
+            <div class="col">
+                <div class="article-card">
+                    <h5 class="mb-2">1. نطاق عمل المنصة وكيف نوفر قيمة مضافة 🚀</h5>
+                    <p class="text-muted small">نظرة عميقة على مهمتنا، القطاعات التي نركز عليها، ونظام المطابقة بين المستثمرين ورواد الأعمال.</p>
+                    <a href="article_detail.html?id=scope" class="btn btn-sm btn-outline-primary">قراءة المقالة</a>
+                </div>
+            </div>
+            <div class="col">
+                <div class="article-card">
+                    <h5 class="mb-2">2. كيفية استخدام المنصة خطوة بخطوة (دليل المستخدم)</h5>
+                    <p class="text-muted small">شرح مفصل لطريقة التسجيل، تقديم العروض، تصفح الفرص، واستخدام أدوات المراسلة وبناء الفريق.</p>
+                    <a href="article_detail.html?id=usage" class="btn btn-sm btn-outline-primary">قراءة المقالة</a>
+                </div>
+            </div>
+            <div class="col">
+                <div class="article-card">
+                    <h5 class="mb-2">3. كيفية الإستفادة القصوى من خدمات INVESTOR</h5>
+                    <p class="text-muted small">نصائح وإرشادات لزيادة فرص حصولك على التمويل كصاحب فكرة، أو لتحقيق عوائد مجزية كمستثمر.</p>
+                    <a href="article_detail.html?id=benefit" class="btn btn-sm btn-outline-primary">قراءة المقالة</a>
+                </div>
+            </div>
+            
+            <hr class="mt-5" style="border-color: var(--border-dark);">
+            
+            <h4 class="text-white mt-4 mb-3">أساسيات عالم الإستثمار 💰</h4>
+            <div class="col">
+                <div class="article-card">
+                    <h5 class="mb-2">4. تعريف الإستثمار وأهميته في الاقتصاد الحديث</h5>
+                    <p class="text-muted small">ما هو الاستثمار؟ الفرق بين الاستثمار والادخار، وكيف يساهم في النمو الاقتصادي للشركات والدول.</p>
+                    <a href="article_detail.html?id=definition" class="btn btn-sm btn-outline-primary">قراءة المقالة</a>
+                </div>
+            </div>
+            <div class="col">
+                <div class="article-card">
+                    <h5 class="mb-2">5. وسائل الإستثمار المختلفة ومجالاتها (التقنية، العقار، الأسهم)</h5>
+                    <p class="text-muted small">استعراض لأبرز أنواع الاستثمار المتاحة وكيفية توزيع محفظتك الاستثمارية بينها.</p>
+                    <a href="article_detail.html?id=methods" class="btn btn-sm btn-outline-primary">قراءة المقالة</a>
+                </div>
+            </div>
+            <div class="col">
+                <div class="article-card">
+                    <h5 class="mb-2">6. إزاي أكون مستثمر ناجح: دليل خطوة بخطوة للمبتدئين</h5>
+                    <p class="text-muted small">ابدأ رحلتك الاستثمارية: تحديد الأهداف، فهم المخاطر، وبناء خطة استثمارية فعالة.</p>
+                    <a href="article_detail.html?id=become" class="btn btn-sm btn-outline-primary">قراءة المقالة</a>
+                </div>
+            </div>
+             <div class="col">
+                <div class="article-card">
+                    <h5 class="mb-2">7. عيوب ومزايا الإستثمار في الشركات الناشئة (Venture Capital)</h5>
+                    <p class="text-muted small">موازنة بين العوائد العالية المحتملة والمخاطر الكامنة في هذا النوع من الاستثمار.</p>
+                    <a href="article_detail.html?id=proscons" class="btn btn-sm btn-outline-primary">قراءة المقالة</a>
+                </div>
+            </div>
+            <div class="col">
+                <div class="article-card">
+                    <h5 class="mb-2">8. مخاطر الإستثمار وكيفية إدارتها وتقليلها</h5>
+                    <p class="text-muted small">فهم أنواع المخاطر (السوق، السيولة، التشغيل) وأفضل استراتيجيات التنويع.</p>
+                    <a href="article_detail.html?id=risks" class="btn btn-sm btn-outline-primary">قراءة المقالة</a>
+                </div>
+            </div>
+            
+        </div>
+        
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+
+</body>
+</html>

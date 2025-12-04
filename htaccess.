@@ -1,0 +1,18 @@
+# .htaccess file for basic PHP configuration
+
+# 1. منع عرض قائمة المجلدات (لأسباب أمنية)
+Options -Indexes
+
+# 2. تحديد الملف الافتراضي عند زيارة مجلد
+DirectoryIndex index.php index.html
+
+# 3. التأكد من معالجة ملفات PHP
+# هذا يضمن أن الخادم يعالج ملفات PHP كسكربتات قابلة للتنفيذ
+<IfModule mod_php8.c>
+    AddType application/x-httpd-php .php
+</IfModule>
+
+# 4. منع الوصول لملفات الإعدادات الحساسة
+<FilesMatch "^db_config\.php$">
+    Require all denied
+</FilesMatch>

@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>INVESTOR | الرسائل والتواصل المباشر</title>
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
+    <link rel="stylesheet" href="style.css"> 
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&display=swap" rel="stylesheet">
+    
+    <style>
+        .messaging-layout {
+            display: flex;
+            height: calc(100vh - 70px); /* ارتفاع الشاشة بالكامل ناقص شريط التنقل */
+            max-width: 1400px;
+            margin: 0 auto;
+            overflow: hidden;
+            border-radius: 15px;
+            box-shadow: 0 0 40px rgba(0, 0, 0, 0.5);
+            border: 1px solid var(--border-dark);
+            background-color: var(--bg-card);
+        }
+        
+        /* قائمة المحادثات (اليمين) */
+        .conversation-list {
+            flex-basis: 350px;
+            background-color: #11111f; /* لون أغمق قليلاً */
+            border-left: 1px solid var(--border-dark);
+            overflow-y: auto;
+        }
+        .conversation-item {
+            padding: 15px 20px;
+            cursor: pointer;
+            border-bottom: 1px solid #3d3d5e;
+            transition: background-color 0.3s;
+        }
+        .conversation-item:hover {
+            background-color: #2c2c44;
+        }
+        .conversation-item.active {
+            background-color: var(--color-primary);
+            color: var(--bg-dark) !important;
+            font-weight: 700;
+        }
+        .conversation-item.active .text-muted {
+            color: var(--bg-dark) !important;
+        }
+        
+        /* منطقة الدردشة (اليسار) */
+        .chat-area {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        .chat-header {
+            padding: 15px 20px;
+            background-color: #2c2c44;
+            border-bottom: 1px solid var(--color-primary);
+            color: var(--color-primary);
+        }
+        
+        /* منطقة عرض الرسائل */
+        .messages-container {
+            flex-grow: 1;
+            padding: 20px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column-reverse; /* لعرض أحدث رسالة في الأسفل */
+        }
+        .message-bubble {
+            max-width: 70%;
+            padding: 10px 15px;
+            border-radius: 15px;
+            margin-bottom: 15px;
+            line-height: 1.5;
+        }
+        
+        /* رسائل المستخدم الحالي (أزرق نيون) */
+        .message-outgoing {
+            background-color: var(--color-primary);
+            color: var(--bg-dark);
+            align-self: flex-start;
+            border-bottom-right-radius: 0;
+            margin-left: auto; /* يدفعه لليسار في RTL */
+            margin-right: 0;
+            font-weight: 500;
+        }
+        
+        /* رسائل الطرف الآخر (داكنة) */
+        .message-incoming {
+            background-color: #3d3d5e;
+            color: var(--color-text);
+            align-self: flex-end;
+            border-bottom-left-radius: 0;
+            margin-right: auto; /* يدفعه لليمين في RTL */
+            margin-left: 0;
+        }
+
+        .message-input-area {
+            padding: 15px 20px;
+            border-top: 1px solid var(--border-dark);
+            background-color: #11111f;
+        }
+        .message-input-area .form-control {
+             background-color: var(--border-dark);
+             color: var(--color-text);
+             border: 1px solid #555;
+        }
+    </style>
+</head>
+<body>
+
+    <header class="header">
+        <div class="logo"><a href="index.html">INVESTOR</a></div>
+        <nav class="nav">
+            <a href="dashboard.html" class="btn btn-outline-dark me-2">لوحة التحكم</a>
+            <a href="logout.php" class="cta-button">خروج</a>
+        </nav>
+    </header>
+
+    <div class="container-fluid pt-3 pb-3" style="background-color: var(--bg-dark);">
+        <div class="messaging-layout">
+            
+            <div class="conversation-list">
+                <div class="p-3 chat-header text-center" style="color: var(--color-text);">
+                    <h5 class="mb-0">الرسائل المباشرة (4)</h5>
+                </div>
+                
+                <div class="conversation-item active">
+                    <p class="mb-1 text-truncate">صندوق التقنية السعودي</p>
+                    <small class="text-muted small">حول: تطبيق "بياناتي"</small>
+                </div>
+
+                <div class="conversation-item">
+                    <p class="mb-1 text-truncate">المستثمر: خالد الرميح</p>
+                    <small class="text-muted small">حول: نظام الري الذكي</small>
+                </div>
+                
+                <div class="conversation-item">
+                    <p class="mb-1 text-truncate">شركة الرواد للاستشارات</p>
+                    <small class="text-muted small">حول: نظام توفير الطاقة الحرارية</small>
+                </div>
+
+                <div class="conversation-item">
+                    <p class="mb-1 text-truncate">المؤسس: فهد المطيري</p>
+                    <small class="text-muted small">حول: طلب مقابلة</small>
+                </div>
+
+            </div>
+            
+            <div class="chat-area">
+                
+                <div class="chat-header">
+                    <h5 class="mb-0 text-white">صندوق التقنية السعودي</h5>
+                    <p class="small mb-0 text-muted">العرض: <a href="pitch_details.html?id=001A" class="text-primary text-decoration-none">تطبيق "بياناتي" لتحليل السوق</a></p>
+                </div>
+                
+                <div class="messages-container">
+                    
+                    <div class="message-bubble message-incoming">
+                        "هل يمكنكم تزويدنا بمزيد من التفاصيل حول تكلفة اكتساب العميل المتوقعة (CAC)؟"
+                        <div class="text-muted small mt-1" style="font-size: 0.7rem;">منذ 10 ثوان</div>
+                    </div>
+                    
+                    <div class="message-bubble message-outgoing">
+                        "شكراً على اهتمامكم. بالطبع، يمكننا إرسال ملف الـ Financials المحدث. هل تفضلون إرساله كـ PDF أم Excel؟"
+                        <div class="text-white small mt-1" style="font-size: 0.7rem;">أنت - 09:30 AM</div>
+                    </div>
+                    
+                    <div class="message-bubble message-incoming">
+                        "العرض يبدو قوياً جداً ونموذج الـ SaaS مناسب للسوق. نبدأ في دراسة التقييم ونطلب مقابلة مبدئية الأسبوع القادم."
+                        <div class="text-muted small mt-1" style="font-size: 0.7rem;">09:28 AM</div>
+                    </div>
+                    
+                    <div class="message-bubble message-outgoing">
+                        "مرحباً فريق الصندوق، نحن متحمسون جداً لاهتمامكم بعرضنا. تفضلوا بالاطلاع على ملف الـ Pitch Deck في المرفقات."
+                        <div class="text-white small mt-1" style="font-size: 0.7rem;">أنت - 09:25 AM</div>
+                    </div>
+                    
+                    <div class="text-center text-muted small my-3 w-100">
+                        --- بدأت المحادثة بتاريخ 2025-05-20 ---
+                    </div>
+                    
+                </div>
+                
+                <div class="message-input-area">
+                    <div class="input-group">
+                        <textarea class="form-control" rows="1" placeholder="اكتب رسالتك هنا..." style="resize: none;"></textarea>
+                        <button class="btn btn-primary" type="button" style="width: 100px;">إرسال</button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+
+</body>
+</html>

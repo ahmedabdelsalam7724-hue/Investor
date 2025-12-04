@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>INVESTOR | لوحة تحكم صاحب المشروع</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <header class="dashboard-header">
+        <div class="logo"><a href="index.html">INVESTOR</a></div>
+        <div class="user-profile">
+            <span class="user-name">أهلاً، سارة!</span>
+            <button class="logout-btn">خروج</button>
+        </div>
+    </header>
+
+    <main class="dashboard-container">
+        
+        <aside class="sidebar">
+            <nav class="sidebar-nav">
+                <a href="#" class="nav-item active">لوحة التحكم</a>
+                <a href="#" class="nav-item">✅ إضافة مشروع جديد</a>
+                <a href="#" class="nav-item">مشاريعي القائمة</a>
+                <a href="#" class="nav-item">متابعة الاهتمامات والتمويل</a>
+                <a href="#" class="nav-item">الرسائل والمحادثات</a>
+                <a href="settings.html" class="nav-item">الإعدادات</a> 
+            </nav>
+        </aside>
+        
+        <section class="main-content">
+            
+            <h2>ملخص لوحة التحكم</h2>
+            
+            <div class="summary-stats">
+                <div class="stat-box">
+                    <h3>المشاريع النشطة</h3>
+                    <p class="stat-value">2</p>
+                    <span class="stat-desc">مشروعين قيد العرض حالياً</span>
+                </div>
+                 <div class="stat-box">
+                    <h3>المستثمرون المهتمون</h3>
+                    <p class="stat-value primary-color">14</p>
+                    <span class="stat-desc">مستثمر شاهد وثائق مشروعك</span>
+                </div>
+                 <div class="stat-box">
+                    <h3>الرسائل الجديدة</h3>
+                    <p class="stat-value success-color">5</p>
+                    <span class="stat-desc">رسائل واردة من مستثمرين</span>
+                </div>
+            </div>
+
+            ---
+
+            <h3>إدارة مشاريعك</h3>
+            <div class="project-management-list">
+                
+                <div class="management-item pending">
+                    <div class="item-details">
+                        <h4>منصة إدارة المحتوى الإبداعي (قيد المراجعة)</h4>
+                        <p>التمويل المطلوب: $150,000 | القطاع: إعلام رقمي</p>
+                    </div>
+                    <div class="item-actions">
+                        <span class="status-tag pending-tag">في انتظار موافقة المسؤول</span>
+                        <button class="edit-btn">تعديل</button>
+                    </div>
+                </div>
+
+                <div class="management-item active">
+                    <div class="item-details">
+                        <h4>تطبيق "بياناتي" لتحليل السوق</h4>
+                        <p>التمويل المطلوب: $200,000 | القطاع: تقنية مالية</p>
+                    </div>
+                    <div class="item-actions">
+                        <span class="status-tag active-tag">نشط ويتم عرضه</span>
+                        <button class="view-interests-btn">عرض الاهتمامات (8)</button>
+                        <button class="edit-btn">تعديل</button>
+                        <button class="archive-btn">أرشفة</button>
+                    </div>
+                </div>
+                
+            </div>
+            
+        </section>
+
+    </main>
+
+</body>
+</html>
